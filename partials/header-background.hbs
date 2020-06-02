@@ -1,0 +1,160 @@
+{{!--
+Wow what the hell is going on in here even?
+
+Ok so, several templates use this big header with a giant BG image. Nice idea, but big images
+have a heavy impact on performance, so it's a good idea to make them responsive. Because we
+can only get the image dynamically using Handlebars, and we can only set the image to properly
+be a background image using CSS, we end up with a handful of inline styles.
+
+If the template in question has a background image, then we render responsive image styles
+for it, and apply those styles to the <header> tag. Else, we just output a <header> tag
+with a `no-image` class so we can style it accordingly.
+--}}
+
+{{#if background}}
+
+<style type="text/css" nonce="MzU2Mjc5NDIyNSwyNTUwMzE0NjM5">
+    .responsive-header-img {
+        background: rgba(0, 0, 0, 0.3);
+    }
+    .responsive-header-img:after {
+        content: "";
+        position: absolute;
+        background-image: url({{img_url background size='xl'}});
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-position: 50% 30%;
+        background-size: cover;
+    }
+
+    @media(max-width: 1000px) {
+        .responsive-header-img {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .responsive-header-img:after {
+            content: "";
+            position: absolute;
+            background-image: url({{img_url background size='l'}});
+            background-image: -webkit-image-set(url({{img_url background size='l'}}) 1x,
+                url({{img_url background size='xl'}}) 2x);
+            background-image: image-set(url({{img_url background size='l'}}) 1x,
+                url({{img_url background size='xl'}}) 2x);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-repeat: no-repeat;
+            background-position: 50% 30%;
+            background-size: cover;
+        }
+    }
+
+    @media(max-width: 600px) {
+        .responsive-header-img {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .responsive-header-img:after {
+            content: "";
+            position: absolute;
+            background-image: url({{img_url background size='m'}});
+            background-image: -webkit-image-set(url({{img_url background size='m'}}) 1x,
+                url({{img_url background size='l'}}) 2x);
+            background-image: image-set(url({{img_url background size='m'}}) 1x,
+                url({{img_url background size='l'}}) 2x);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-repeat: no-repeat;
+            background-position: 50% 30%;
+            background-size: cover;
+        }
+    }
+</style>
+
+{{#is "post"}}
+	<div class="outer site-post-header-background responsive-header-img">
+{{else}}
+	<div class="outer site-page-header-background responsive-header-img">
+{{/is}}
+
+{{else}}
+
+<style type="text/css">
+    .responsive-header-img {
+        background: rgba(0, 0, 0, 0.3);
+    }
+    .responsive-header-img:after {
+        content: "";
+        position: absolute;
+        background-image: url(/content/images/size/w2000/2020/06/blog-cover-image.jpg);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-position: 50% 30%;
+        background-size: cover;
+    }
+
+    @media(max-width: 1000px) {
+        .responsive-header-img {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .responsive-header-img:after {
+            content: "";
+            position: absolute;
+            background-image: url(/content/images/size/w1200/2020/06/blog-cover-image.jpg);
+            background-image: -webkit-image-set(url(/content/images/size/w1200/2020/06/blog-cover-image.jpg) 1x,
+                url(/content/images/size/w2000/2020/06/blog-cover-image.jpg) 2x);
+            background-image: image-set(url(/content/images/size/w1200/2020/06/blog-cover-image.jpg) 1x,
+                url(/content/images/size/w2000/2020/06/blog-cover-image.jpg) 2x);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-repeat: no-repeat;
+            background-position: 50% 30%;
+            background-size: cover;
+        }
+    }
+
+    @media(max-width: 600px) {
+        .responsive-header-img {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .responsive-header-img:after {
+            content: "";
+            position: absolute;
+            background-image: url(/content/images/size/w600/2020/06/blog-cover-image.jpg);
+            background-image: -webkit-image-set(url(/content/images/size/w600/2020/06/blog-cover-image.jpg) 1x,
+                url(/content/images/size/w1200/2020/06/blog-cover-image.jpg) 2x);
+            background-image: image-set(url(/content/images/size/w600/2020/06/blog-cover-image.jpg) 1x,
+                url(/content/images/size/w1200/2020/06/blog-cover-image.jpg) 2x);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-repeat: no-repeat;
+            background-position: 50% 30%;
+            background-size: cover;
+        }
+    }
+</style>
+
+{{#is "post"}}
+	<div class="outer site-post-header-background responsive-header-img">
+{{else}}
+	<div class="outer site-page-header-background responsive-header-img">
+{{/is}}
+
+{{/if}}

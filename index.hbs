@@ -1,0 +1,48 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+<header class="site-home-header">
+    {{> header-background background=@site.cover_image}} {{!--Special header-image.hbs partial to generate the background image--}}
+        <div class="inner">
+            {{> "site-nav"}}
+            <div class="site-header-content">
+                <h1 class="site-title">
+                    {{#if @site.logo}}
+                        <img class="site-logo" src="{{img_url @site.logo size="l"}}" alt="{{@site.title}}" />
+                    {{else}}
+                        {{@site.title}}
+                    {{/if}}
+                </h1>
+                <h2 class="site-description">{{@site.description}}</h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="support">
+	<p><strong>Sponsored by: </strong>&nbsp; SPONSORMESSAGE</p>
+</div>
+
+{{!-- The main content area --}}
+<main id="site-main" class="site-main outer">
+    <div class="inner posts">
+
+        <div class="post-feed">
+            {{#foreach posts visibility="all"}}
+
+                {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+                {{> "post-card"}}
+
+            {{/foreach}}
+        </div>
+
+	{{pagination}}
+
+    </div>
+
+    <div class="site-sidebar">
+        {{> site-sidebar}}
+    </div>
+
+</main>

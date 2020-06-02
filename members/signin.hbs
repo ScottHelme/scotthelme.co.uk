@@ -1,0 +1,58 @@
+{{!< ../default-no-redirect}}
+
+<header class="site-home-header">
+    {{> header-background background=feature_image}} {{!--Special header-image.hbs partial to generate the background image--}}
+        <div class="inner">
+            {{> "site-nav"}}
+            <div class="site-header-content">
+                <h1 class="site-title">
+                    {{#if @site.logo}}
+                        <img class="site-logo" src="{{img_url @site.logo size="l"}}" alt="{{@site.title}}" />
+                    {{else}}
+                        Sign In
+                    {{/if}}
+                </h1>
+                <h2 class="site-description">Sign in to your account.</h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="support">
+	<p></p>
+</div>
+
+<main id="site-main" class="site-main site-signin outer"><br/><br/>
+    <div class="inner">
+
+    {{#if @member}}
+
+        {{!-- Logged in: Redirect home --}}
+        <script type="text/javascript" src="{{asset "js/member-logged-in-redirect.min.js"}}"></script>
+
+    {{else}}
+
+        {{!-- Not logged in: Signin form --}}
+        <form class="signin-form" data-members-form="signin">
+            <h1 class="signin-title">Welcome back!</h1>
+            <p>Sign into your account to show your support!</p>
+            <div class="signin-box">
+                <input data-members-email type="email" placeholder="Your email address" required="true" autocomplete="false" />
+                <button class="button primary" type="submit">
+                    <span class="button-content">Send login link</span>
+                    <span class="button-loader">{{> "icons/loader"}}</span>
+                </button>
+            </div>
+            <p><small>Don't have an account yet? <a href="{{@site.url}}/signup/">Sign up</a></small></p>
+            <div class="message-success"><strong>Great!</strong> Check your inbox and click the link to complete signin</div>
+            <div class="message-error">Please enter a valid email address!</div>
+        </form>
+
+    {{/if}}
+
+    <div class="site-sidebar">
+        {{> site-sidebar}}
+    </div>
+
+    </div>
+</main>

@@ -1,0 +1,17 @@
+{{#if isSecondary}}
+    {{!-- secondary navigation --}}
+        {{#foreach navigation}}
+            <a class="{{link_class for=(url) class=(concat "nav-" slug)}}" href="{{url absolute="true"}}">{{label}}</a>
+        {{/foreach}}
+{{else}}
+    {{!-- primary navigation --}}
+    <ul class="nav" role="menu">
+        {{#foreach navigation}}
+		<li class="{{link_class for=(url) class=(concat "nav-" slug)}}" role="menuitem"><a href="{{url absolute="true"}}">{{label}}</a></li>
+        {{/foreach}}
+		<li role="menuitem"><a href="https://www.facebook.com/scott.helme"><i class="fab fa-facebook"></i></a></li>
+		<li role="menuitem"><a href="https://twitter.com/Scott_Helme"><i class="fab fa-twitter"></i></a></li>
+		<li role="menuitem"><a href="https://github.com/ScottHelme"><i class="fab fa-github"></i></a></li>
+		<li role="menuitem"><a href="https://scotthelme.co.uk/rss/"><i class="fas fa-rss"></i></a></li>
+    </ul>
+{{/if}}

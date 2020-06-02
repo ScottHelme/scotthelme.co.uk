@@ -1,0 +1,63 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{!-- Everything inside the #post tags pulls data from the post --}}
+{{#post}}
+
+<header class="site-home-header">
+    {{> header-background background=feature_image}} {{!--Special header-image.hbs partial to generate the background image--}}
+        <div class="inner">
+            {{> "site-nav"}}
+            <div class="site-header-content">
+                <h1 class="site-title">
+                    {{#if @site.logo}}
+                        <img class="site-logo" src="{{img_url @site.logo size="l"}}" alt="{{@site.title}}" />
+                    {{else}}
+                        {{title}}
+                    {{/if}}
+                </h1>
+                <h2 class="site-description">{{excerpt}}</h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="support">
+	<p><strong>Sponsored by: </strong>&nbsp; SPONSORMESSAGE</p>
+</div>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full {{post_class}} no-image">
+
+            <br/><br/>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    {{content}}
+                </div>
+            </section>
+
+        </article>
+
+    </div>
+
+    <div class="site-sidebar">
+        {{> site-sidebar}}
+    </div>
+
+</main>
+
+{{/post}}
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script>
+$(function() {
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+});
+</script>
+{{/contentFor}}

@@ -1,0 +1,131 @@
+{{!< ../default-no-redirect}}
+
+<header class="site-home-header">
+    {{> header-background background=feature_image}} {{!--Special header-image.hbs partial to generate the background image--}}
+        <div class="inner">
+            {{> "site-nav"}}
+            <div class="site-header-content">
+                <h1 class="site-title">
+                    {{#if @site.logo}}
+                        <img class="site-logo" src="{{img_url @site.logo size="l"}}" alt="{{@site.title}}" />
+                    {{else}}
+                        Account
+                    {{/if}}
+                </h1>
+                <h2 class="site-description">Manage your preferences and subscription here.</h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="support">
+	<p></p>
+</div>
+
+<main id="site-main" class="site-main site-account outer"><br/><br/>
+    <div class="inner">
+
+    {{#if @member.paid}}
+
+        {{!-- Logged in, paying member: Show account info --}}
+        <div class="subscriber-box">
+
+            {{#foreach @member.subscriptions}}
+                <div class="subscription">
+                    <div class="subscriber-header">
+                        <div class="subscription-title">
+                            {{#if @first}}
+                                <h1>Your account</h1>
+                            {{/if}}
+                            {{#if cancel_at_period_end}}
+                                <p>
+                                    <strong class="subscription-expiration-warning">Your subscription will expire on {{date current_period_end format="DD MMM YYYY"}}.</strong> Please consider turning auto-renew back on to continue your support!
+                                </p>
+                            {{else}}
+                                <p>
+                                    Hey! You have an active <strong>{{@site.title}}</strong> account and are supporting my work! Get in touch if have any problems and thanks for subscribing ❤️
+                                </p>
+                            {{/if}}
+                        </div>
+                        {{#if @first}}
+                            <div class="subscriber-avatar">
+                                {{> "icons/avatar"}}
+                                {{#if @member.avatar_image}}
+                                    <img src="{{@member.avatar_image}}" />
+                                {{/if}}
+                            </div>
+                        {{/if}}
+                    </div>
+                    <div class="subscriber-details">
+                        <div class="subscriber-detail">
+                            <label class="subscriber-detail-label">Email address</label>
+                            <span class="subscriber-detail-content">{{@member.email}}</span>
+                        </div>
+
+                        <div class="subscriber-detail">
+                            <label class="subscriber-detail-label">Your plan</label>
+                                <span class="subscriber-detail-content">{{plan.currency_symbol}}{{price plan.amount}}/{{plan.interval}}</span>
+                        </div>
+
+                        <div class="subscriber-detail">
+                            <label class="subscriber-detail-label">Card</label>
+                            <span class="subscriber-detail-content">**** **** **** {{default_payment_card_last4}}</span>
+                        </div>
+
+                        <div class="subscriber-detail">
+                            <label class="subscriber-detail-label">
+                                {{#if cancel_at_period_end}}
+                                    Expires
+                                {{else}}
+                                    Next bill date
+                                {{/if}}
+                            </label>
+                            <span class="subscriber-detail-content">{{date current_period_end format="DD MMM YYYY"}}</span>
+                        </div>
+                    </div>
+
+                    <ul class="subscription-actions">
+                        <li><a href="javascript:"
+                                data-members-edit-billing
+                                data-members-success="{{@site.url}}/account/?stripe=billing-update-success"
+                                data-members-cancel="{{@site.url}}/account/?stripe=billing-update-cancel">Edit billing info</a></li>
+                        <li>{{cancel_link}}</li>
+                    </ul>
+                </div>
+            {{/foreach}}
+        </div>
+
+    {{else if @member}}
+
+        {{!-- Logged in, not paying: Link to checkout --}}
+        <div class="account-box">
+            <div class="subscriber-avatar">
+                {{> "icons/avatar"}}
+                {{#if @member.avatar_image}}
+                    <img src="{{@member.avatar_image}}" />
+                {{/if}}
+            </div>
+            <h1 class="account-box-title">Currently, you're not a supporter</h1>
+            <p>Hey there! You're currently subscribed (<strong>{{@member.email}}</strong>) for free updates from my blog but you aren't supporting my work. Please consider helping me out and click the 'Support This Blog' button!</p>
+            <div class="authbox-signup">
+                <a class="button primary" href="{{@site.url}}/signup/">
+                    <span class="button-content">💪 Support This Blog 💪</span>
+                </a>
+            </div>
+            <br/>
+            <p>You can also support me with <a href="https://www.paypal.me/scotthelme" target="_blank" rel="noopener">PayPal</a>, <a href="bitcoin:1ScottkY3kbPi6fQEgAaGQoRfz4MxJLGZ" target="_blank" rel="noopener">Bitcoin</a>, <a href="https://flattr.com/@ScottHelme" target="_blank" rel="noopener">Flattr</a> and <a href="https://www.patreon.com/ScottHelme" target="_blank" rel="noopener">Patreon</a>.
+        </div>
+
+    {{else}}
+
+        {{!-- Not logged in: Redirect to signin --}}
+        <script type="text/javascript" src="{{asset "js/member-not-logged-in-redirect.min.js"}}"></script>
+
+    {{/if}}
+
+    <div class="site-sidebar">
+        {{> site-sidebar}}
+    </div>
+
+    </div>
+</main>
