@@ -1,4 +1,4 @@
 #Details: https://scotthelme.co.uk/say-hello-to-security-txt/
-Contact: security@scotthelme.co.uk
+Contact: mailto:security@scotthelme.co.uk
 Contact: https://twitter.com/Scott_Helme
 Encryption: https://scotthelme.co.uk/contact/
